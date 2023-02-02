@@ -1,65 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import styles from './JokesList.module.css';
-import favoritesStyles from './FavoritesList.module.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styles from "./JokesList.module.css";
 
 const JokesList = () => {
-  const [jokes, setJokes] = useState([]);
-  const [currentJoke, setCurrentJoke] = useState({});
+  const [joke, setJoke] = useState({});
   const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!jokes.length) {
-      fetch('https://icanhazdadjoke.com/', { headers: { 'Accept': 'application/json' } })
-        .then(response => response.json())
-        .then(data => {
-          setJokes([...jokes, { id: data.id, joke: data.joke }]);
-          setCurrentJoke(data);
-        });
-    }
-  }, [jokes]);
+    getJoke();
+  }, []);
 
-  const handleAddToFavorites = joke => {
+  const getJoke = async () => {
+    setLoading(true);
+    const res = await axios.get("https://icanhazdadjoke.com", {
+      headers: { Accept: "application/json" },
+    });
+    setJoke(res.data);
+    setLoading(false);
+  };
+
+  const addToFavorites = () => {
     setFavorites([...favorites, joke]);
   };
 
-  const handleDeleteFromFavorites = jokeId => {
-    setFavorites(favorites.filter(joke => joke.id !== jokeId));
-  };
-
-  const handleNextJoke = () => {
-    const nextJoke = jokes.find(joke => joke.id !== currentJoke.id);
-    setCurrentJoke(nextJoke);
+  const removeFromFavorites = (jokeToRemove) => {
+    setFavorites(favorites.filter((j) => j.id !== jokeToRemove.id));
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.joke}>
-        <h2 className={styles.jokeText}>{currentJoke.joke}</h2>
-        <div className={styles.buttons}>
-          <button onClick={() => handleAddToFavorites(currentJoke)}>Add to favorites</button>
-          <button onClick={handleNextJoke}>Next joke</button>
+    <div className={styles.jokesContainer}>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          <div className={styles.displayedJoke}>
+            <p>{joke.joke}</p>
+          </div>
+          <div className={styles.buttonsContainer}>
+            <button onClick={addToFavorites}>Add to Favorites</button>
+            <button onClick={getJoke}>Next Joke</button>
+          </div>
         </div>
-      </div>
-      <table className={favoritesStyles.favoritesTable}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Joke</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {favorites.map(joke => (
-            <tr key={joke.id}>
-              <td>{joke.id}</td>
-              <td>{joke.joke}</td>
-              <td>
-                <button onClick={() => handleDeleteFromFavorites(joke.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      )}
     </div>
   );
 };
