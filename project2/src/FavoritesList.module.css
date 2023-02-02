@@ -1,0 +1,25 @@
+.favorites-table {
+    width: 80%;
+    margin: 30px auto;
+    border-collapse: collapse;
+  }
+  
+  .favorites-table th,
+  .favorites-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .favorites-table th {
+    background-color: #e5e5e5;
+  }
+  
+  .favorites-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .favorites-table tr:hover {
+    background-color: #ddd;
+  }
+  
