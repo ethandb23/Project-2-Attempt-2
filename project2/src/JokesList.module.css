@@ -1,8 +1,10 @@
-body {
-    font-family: Arial, sans-serif;
+.jokesList {
+    background: linear-gradient(to right, #87CEFA, #708090);
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
   
   form {
@@ -11,56 +13,57 @@ body {
     margin-bottom: 20px;
   }
   
-  input[type='text'] {
-    font-size: 16px;
+  input[type="text"] {
     padding: 10px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
+    font-size: 18px;
     margin-right: 10px;
+    border-radius: 5px;
+    border: none;
   }
   
-  button[type='submit'] {
+  button[type="submit"] {
     padding: 10px 20px;
-    background-color: lightblue;
-    border: none;
-    border-radius: 5px;
+    background-color: green;
     color: white;
-    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
     cursor: pointer;
   }
   
   ul {
     list-style: none;
     padding: 0;
-    width: 50%;
+    margin: 0;
+    width: 80%;
   }
   
   li {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid lightgray;
+    background-color: lightblue;
     border-radius: 5px;
   }
   
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     margin-right: 10px;
   }
   
   button {
     padding: 10px 20px;
-    background-color: lightgray;
-    border: none;
-    border-radius: 5px;
+    background-color: blue;
     color: white;
-    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
     cursor: pointer;
     margin-right: 10px;
   }
   
-  button[type='button'] {
-    background-color: tomato;
+  .clearButton {
+    background-color: red;
+    margin-top: 20px;
   }
   

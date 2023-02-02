@@ -2,35 +2,48 @@ import React, { useState, useEffect } from 'react';
 import styles from './JokesList.module.css';
 
 const JokesList = () => {
-  const [joke, setJoke] = useState('');
-  const [favorites, setFavorites] = useState([]);
+  const [jokes, setJokes] = useState([]);
+  const [currentJokeIndex, setCurrentJokeIndex] = useState(0);
 
   useEffect(() => {
-    fetch('https://icanhazdadjoke.com/', { headers: { 'Accept': 'application/json' } })
-      .then(response => response.json())
-      .then(data => setJoke(data.joke));
+    fetchJoke();
   }, []);
 
-  const addToFavorites = () => {
-    setFavorites([...favorites, joke]);
-    setJoke('');
+  const fetchJoke = () => {
+    fetch('https://icanhazdadjoke.com/', { headers: { 'Accept': 'application/json' } })
+      .then(response => response.json())
+      .then(data => {
+        setJokes([...jokes, data.joke]);
+      });
   };
 
-  const deleteJoke = () => {
-    setJoke('');
+  const handleAddJoke = () => {
+    fetchJoke();
+  };
+
+  const handleDeleteJoke = () => {
+    setJokes(jokes.filter((joke, index) => index !== currentJokeIndex));
+    setCurrentJokeIndex(currentJokeIndex - 1);
+  };
+
+  const handleNextJoke = () => {
+    setCurrentJokeIndex(currentJokeIndex + 1);
   };
 
   return (
-    <div>
-      <h1>{joke}</h1>
-      <button onClick={addToFavorites}>Add to Favorites</button>
-      <button onClick={deleteJoke}>Delete</button>
-      <h2>Favorites:</h2>
-      <ul>
-        {favorites.map((favorite, index) => (
-          <li key={index}>{favorite}</li>
-        ))}
-      </ul>
+    <div className={styles.container}>
+      <h2>{jokes[currentJokeIndex]}</h2>
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={handleAddJoke}>
+          Add to Favorite List
+        </button>
+        <button className={styles.button} onClick={handleDeleteJoke}>
+          Delete Joke
+        </button>
+        <button className={styles.button} onClick={handleNextJoke}>
+          Next Joke
+        </button>
+      </div>
     </div>
   );
 };
