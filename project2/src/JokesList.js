@@ -1,48 +1,35 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styles from "./JokesList.module.css";
+import React, { useEffect, useState } from 'react';
+import JokeCard from './JokeCard';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToFavorites, removeFromFavorites } from './favoritesSlice';
 
 const JokesList = () => {
   const [joke, setJoke] = useState({});
-  const [favorites, setFavorites] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const favorites = useSelector(state => state.favorites);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getJoke();
+    const fetchJoke = async () => {
+      const response = await axios.get('https://api.chucknorris.io/jokes/random');
+      setJoke(response.data);
+    };
+    fetchJoke();
   }, []);
 
-  const getJoke = async () => {
-    setLoading(true);
-    const res = await axios.get("https://icanhazdadjoke.com", {
-      headers: { Accept: "application/json" },
-    });
-    setJoke(res.data);
-    setLoading(false);
+  const handleAddToFavorites = () => {
+    dispatch(addToFavorites(joke));
   };
 
-  const addToFavorites = () => {
-    setFavorites([...favorites, joke]);
-  };
-
-  const removeFromFavorites = (jokeToRemove) => {
-    setFavorites(favorites.filter((j) => j.id !== jokeToRemove.id));
+  const handleFetchJoke = () => {
+    fetchJoke();
   };
 
   return (
-    <div className={styles.jokesContainer}>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <div>
-          <div className={styles.displayedJoke}>
-            <p>{joke.joke}</p>
-          </div>
-          <div className={styles.buttonsContainer}>
-            <button onClick={addToFavorites}>Add to Favorites</button>
-            <button onClick={getJoke}>Next Joke</button>
-          </div>
-        </div>
-      )}
+    <div>
+      <JokeCard joke={joke} />
+      <button onClick={handleAddToFavorites}>Add to Favorites</button>
+      <button onClick={handleFetchJoke}>Next Joke</button>
     </div>
   );
 };
