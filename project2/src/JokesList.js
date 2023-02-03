@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './JokesList.module.css';
-import favoritesStyles from './FavoritesList.module.css';
+import favoritesStyles from './FavoritesStyles.module.css';
 
 const JokesList = () => {
   const [jokes, setJokes] = useState([]);
