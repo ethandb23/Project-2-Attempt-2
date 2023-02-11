@@ -1,0 +1,75 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .currentJoke {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: #f1f1f1; /* grey background color */
+    color: #ff69b4; /* pink text color */
+    font-size: 1.5rem;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .favoriteButton {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: #ff69b4; /* pink background color */
+    color: #f1f1f1; /* white text color */
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .nextButton {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: #ff69b4; /* pink background color */
+    color: #f1f1f1; /* white text color */
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .favoritesContainer {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: #f1f1f1; /* grey background color */
+    color: #ff69b4; /* pink text color */
+    font-size: 1.2rem;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .removeButton {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: #ff69b4; /* pink background color */
+    color: #f1f1f1; /* white text color */
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f1f1f1; /* grey background color */
+    color: #ff69b4; /* pink text color */
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
